@@ -1,42 +1,358 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* ===================================================================
+   src/App.css - ESTILOS PRINCIPAIS, LAYOUT E COMPONENTES MODULARES
+   =================================================================== */
+
+/* VARIÁVEIS E ESTILOS GLOBAIS (Não incluídos aqui, mas devem estar no index.css) */
+
+/* === 1. LAYOUT DA PÁGINA (HEADER, GRID, FOOTER) === */
+
+/* 1.1. HEADER (Cabeçalho) */
+.main-header {
+    background-color: var(--color-secondary);
+    color: var(--color-text-light);
+    padding: 2rem 0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.header-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: 0.5rem;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.tagline {
+    font-size: 1rem;
+    font-weight: 300;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+/* 1.2. LAYOUT PRINCIPAL (GRID) - AJUSTE DE ESPAÇAMENTO */
+.app-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 3rem; /* Espaçamento entre as colunas */
+    padding: 2.5rem 1.5rem; /* Padding vertical e horizontal maior */
 }
 
-.card {
-  padding: 2em;
+@media (max-width: 900px) {
+    .app-container {
+        grid-template-columns: 1fr;
+    }
 }
 
-.read-the-docs {
-  color: #888;
+/* 1.3. ÁREAS GERAIS (CARDS e SIDEBAR) - ORGANIZAÇÃO DA BARRA LATERAL */
+.sidebar-column {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem; /* Espaçamento uniforme entre os elementos da sidebar */
+}
+
+/* Estilo Base dos Cards (TaskStatus e TaskForm usam este visual) */
+.form-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--color-border);
+}
+
+.form-card h3 {
+    margin-bottom: 1.5rem;
+    color: var(--color-secondary);
+    border-bottom: 2px solid var(--color-primary);
+    padding-bottom: 0.5rem;
+}
+
+.list-column h2 {
+    font-size: 2rem;
+    color: var(--color-secondary);
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 0.5rem;
+}
+
+/* 1.4. RODAPÉ */
+.main-footer {
+    background-color: var(--color-secondary);
+    color: var(--color-text-light);
+    padding-top: 3rem;
+    font-size: 0.9rem;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #334155;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 200px;
+}
+
+.footer-logo {
+    color: var(--color-primary);
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.footer-slogan {
+    color: #94A3B8;
+    margin-bottom: 1rem;
+}
+
+.footer-section h5 {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    color: var(--color-primary);
+    border-bottom: 1px solid var(--color-primary);
+    padding-bottom: 5px;
+    display: inline-block;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li a {
+    color: var(--color-text-light);
+    text-decoration: none;
+    line-height: 2;
+    transition: color 0.2s;
+}
+
+.footer-section ul li a:hover {
+    color: var(--color-primary);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding: 1rem 0;
+    font-size: 0.75rem;
+    color: #64748B;
+    background-color: #020817;
+}
+
+.social-icons a {
+    font-size: 1.5rem;
+    margin-right: 1rem;
+    text-decoration: none;
+    color: var(--color-text-light);
+    transition: color 0.2s;
+}
+
+.social-icons a:hover {
+    color: var(--color-primary);
+}
+
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-section {
+        margin-bottom: 2rem;
+        min-width: 100%;
+    }
+
+    .footer-section h5 {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+}
+
+button {
+    background-color: var(--color-primary);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.2s;
+}
+button:hover {
+    background-color: #059669;
+}
+
+input[type="text"], select {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.delete-btn {
+    background-color: transparent;
+    color: var(--color-danger);
+    padding: 0.5rem;
+    font-size: 1rem;
+    border-radius: 50%;
+}
+
+.delete-btn:hover {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: var(--color-danger);
+}
+
+.task-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.task-item {
+    display: flex;
+    align-items: center;
+    background: white;
+    padding: 1rem;
+    border-radius: 6px;
+    border-left: 5px solid var(--color-primary);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+}
+
+.task-item.completed {
+    border-left-color: #A3A3A3;
+    opacity: 0.7;
+    text-decoration: line-through;
+}
+
+.task-content {
+    flex-grow: 1;
+    margin-left: 1rem;
+}
+
+.task-title {
+    font-weight: 600;
+    display: block;
+    color: var(--color-text-dark);
+}
+
+.status-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); 
+    border: 1px solid var(--color-border); 
+}
+
+.status-title {
+    font-size: 1.25rem;
+    color: var(--color-secondary);
+    margin-bottom: 1.5rem;
+}
+
+.progress-bar-container {
+    height: 14px;
+    background-color: #E2E8F0;
+    border-radius: 7px;
+    overflow: hidden;
+    margin-bottom: 0.75rem;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background-color: var(--color-primary);
+    text-align: right;
+    color: white;
+    font-size: 0.75rem;
+    line-height: 14px;
+    padding-right: 5px;
+    transition: width 0.5s ease-out;
+}
+
+.progress-text {
+    font-size: 0.9rem;
+    color: #64748B;
+    margin-bottom: 1.5rem;
+}
+
+.status-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    text-align: center;
+}
+
+.status-metric {
+    padding: 1rem 0;
+    border-radius: 4px;
+    background-color: #F1F5F9;
+}
+
+.metric-value {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.metric-label {
+    font-size: 0.8rem;
+    color: #64748B;
+}
+
+.status-metric.completed .metric-value { color: var(--color-primary); }
+.status-metric.pending .metric-value { color: var(--color-danger); }
+.status-metric.total .metric-value { color: var(--color-secondary); }
+
+
+/* 3.3. FilterBar - AJUSTE DE ESPAÇAMENTO */
+.filter-bar {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--color-border);
+    margin-bottom: 1.5rem; /* Mantém um pequeno espaço acima da lista */
+}
+
+.filter-label {
+    font-weight: 600;
+    color: var(--color-secondary);
+    white-space: nowrap;
+}
+
+.filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.filter-btn {
+    background-color: #F1F5F9;
+    color: var(--color-text-dark);
+    padding: 0.5rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border: 1px solid #E2E8F0;
+}
+
+.filter-btn:hover {
+    background-color: #E2E8F0;
+}
+
+.filter-btn.active {
+    background-color: var(--color-primary);
+    color: white;
+    border-color: var(--color-primary);
+    font-weight: 600;
 }
