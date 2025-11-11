@@ -61,8 +61,8 @@ async function deleteTask(taskId) {
 async function updateTaskStatus(taskId, newStatus) {
   try {
     // O backend espera o status como 'true' ou 'false'
-    const statusString = String(newStatus); 
-    
+    const statusString = String(newStatus);
+
     // O endpoint é /update/status/{id}?status=...
     const response = await axios.put(
       `http://10.110.12.61:8080/task/update/status/${taskId}?status=${statusString}`
