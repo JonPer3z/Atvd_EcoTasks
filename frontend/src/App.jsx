@@ -6,56 +6,58 @@ import FilterBar from './components/FilterBar';
 import './App.css'; 
 
 // IMPORTAÇÃO DAS FUNÇÕES DA SUA API SERVICE
-import { getTasks, createTask, deleteTask } from './services/apiService'; 
+import { getTasks, createTask, deleteTask } from './Service/ApiService'; 
 
 function App() {
-  const [tarefas, setTarefas] = useState([]);
-  const [filter, setFilter] = useState('all'); 
+  // CORREÇÃO 1: Inicializa 'tarefas' como um array vazio [] para evitar o erro .length
+  const [tarefas, setTarefas] = useState([]); 
+  const [filter, setFilter] = useState('all');  
 
-  // FUNÇÃO DE BUSCA (GET): Usa getTasks da Service
+  // FUNÇÃO DE BUSCA (GET)
   const fetchTarefas = async () => {
     try {
       const data = await getTasks(); 
-      setTarefas(data);
+      // Se a service retornar undefined (o que não deveria), garantimos que é um array
+      setTarefas(data || []); 
     } catch (error) {
       console.error("Erro na busca de tarefas (via getTasks): ", error);
+      setTarefas([]); // Em caso de erro, define como array vazio
     }
   };
 
   useEffect(() => {
     fetchTarefas();
   }, []);
+  
+  // CORREÇÃO 2: As funções de manipulação devem ser declaradas aqui, antes do return.
 
-  // FUNÇÃO DE ADIÇÃO (POST): Usa createTask da Service
+  // FUNÇÃO DE ADIÇÃO (POST)
   const handleAddTask = async (novaTarefa) => {
     try {
       await createTask(novaTarefa); 
-      fetchTarefas(); // Recarrega a lista
+      fetchTarefas(); 
     } catch (error) {
       console.error("Erro ao adicionar tarefa (via createTask): ", error);
     }
   };
 
-  // FUNÇÃO DE DELETAR (DELETE): Usa deleteTask da Service
+  // FUNÇÃO DE DELETAR (DELETE)
   const handleDeleteTask = async (id) => {
     try {
       await deleteTask(id); 
-      fetchTarefas(); // Recarrega a lista
+      fetchTarefas(); 
     } catch (error) {
       console.error("Erro ao deletar tarefa: ", error);
     }
   };
   
-  // A função handleToggleStatus FOI REMOVIDA.
-  // Se o backend não processa PUT, não a teremos no frontend.
+  // A filtragem foi mantida
 
   const filteredTasks = useMemo(() => {
     if (filter === 'all') {
       return tarefas;
     }
 
-    // A filtragem por status ('pending' ou 'completed') só funcionará
-    // se o backend estiver retornando o status correto.
     return tarefas.filter(tarefa => 
       filter === 'pending' ? !tarefa.status : 
       filter === 'completed' ? tarefa.status :
@@ -77,13 +79,12 @@ function App() {
         
         <div className="sidebar-column">
             
-            {/* TaskStatus ainda usa 'tarefas', mas a barra de progresso
-               só será precisa se o 'status' for persistido no backend */}
             <TaskStatus tarefas={tarefas} />
 
             <div className="form-card">
               <h3>Nova Ação Sustentável</h3>
-              <TaskForm onAddTask={handleAddTask} />
+              {/* handleAddTask é usado aqui */}
+              <TaskForm onAddTask={handleAddTask} /> 
             </div>
         </div>
 
@@ -93,13 +94,14 @@ function App() {
             <FilterBar currentFilter={filter} onFilterChange={setFilter} />
 
             <TaskList 
-              tareças={filteredTasks} 
+              tarefas={filteredTasks} 
+              // handleDeleteTask é usado aqui
               onDeleteTask={handleDeleteTask} 
-              // Removida a prop onToggleStatus
             />
         </div>
       </main>
       
+      {/* ... (footer) ... */}
       <footer className="main-footer">
           <div className="footer-content container">
               <div className="footer-section brand-info">
