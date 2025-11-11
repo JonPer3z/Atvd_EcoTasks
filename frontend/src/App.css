@@ -1,12 +1,3 @@
-/* ===================================================================
-   src/App.css - ESTILOS PRINCIPAIS, LAYOUT E COMPONENTES MODULARES
-   =================================================================== */
-
-/* VARIÁVEIS E ESTILOS GLOBAIS (Não incluídos aqui, mas devem estar no index.css) */
-
-/* === 1. LAYOUT DA PÁGINA (HEADER, GRID, FOOTER) === */
-
-/* 1.1. HEADER (Cabeçalho) */
 .main-header {
     background-color: var(--color-secondary);
     color: var(--color-text-light);

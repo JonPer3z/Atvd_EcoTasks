@@ -1,13 +1,13 @@
 import axios from "axios";
 
-//Post (Corrigido: Traduz de camelCase/boolean para snake_case/string)
+//Post
 async function createTask(taskData) {
   try {
-    // taskData (do frontend) é: { title: "...", category: "...", status: false }
+    
     const apiTaskData = {
       task_title: taskData.title,
       task_category: taskData.category,
-      task_status: String(taskData.status) // Converte boolean 'false' para string "false"
+      task_status: String(taskData.status) 
     };
 
     const response = await axios.post("http://10.110.12.61:8080/task/post", apiTaskData);
@@ -18,20 +18,19 @@ async function createTask(taskData) {
   }
 }
 
-//Get (Corrigido: Traduz de snake_case/string para camelCase/boolean)
+//Get 
 async function getTasks() {
   try {
     const response = await axios.get("http://10.110.12.61:8080/task/get");
 
-    const tasks = response.data; // Vem do backend como task_title, task_status ("true" ou "false")
-
+    const tasks = response.data; 
     if (Array.isArray(tasks)) {
       const formattedTask = tasks.map((task) => {
         return {
           id: task.id,
-          title: task.task_title,     // Converte snake_case para camelCase
-          category: task.task_category, // Converte snake_case para camelCase
-          status: task.task_status === 'true' // Converte string "true" para boolean true
+          title: task.task_title,     
+          category: task.task_category,
+          status: task.task_status === 'true' 
         };
       });
 
@@ -45,7 +44,7 @@ async function getTasks() {
   }
 }
 
-//Delete (Já estava OK)
+//Delete 
 async function deleteTask(taskId) {
   try {
     const response = await axios.delete(`http://10.110.12.61:8080/task/delete/${taskId}`
@@ -57,13 +56,10 @@ async function deleteTask(taskId) {
   }
 }
 
-// NOVO: Adicionada a função PUT para atualizar o status
 async function updateTaskStatus(taskId, newStatus) {
   try {
-    // O backend espera o status como 'true' ou 'false'
     const statusString = String(newStatus);
 
-    // O endpoint é /update/status/{id}?status=...
     const response = await axios.put(
       `http://10.110.12.61:8080/task/update/status/${taskId}?status=${statusString}`
     );
@@ -74,5 +70,4 @@ async function updateTaskStatus(taskId, newStatus) {
   }
 }
 
-// Exportar a nova função
 export { getTasks, createTask, deleteTask, updateTaskStatus };

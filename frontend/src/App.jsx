@@ -4,8 +4,6 @@ import TaskForm from './components/TaskForm';
 import TaskStatus from './components/TaskStatus';
 import FilterBar from './components/FilterBar';
 import './App.css';
-
-// IMPORTAÇÃO CORRIGIDA/ADICIONADA (incluindo updateTaskStatus)
 import { getTasks, createTask, deleteTask, updateTaskStatus } from './Service/ApiService';
 
 function App() {
@@ -26,7 +24,7 @@ function App() {
     fetchTarefas();
   }, []);
 
-  // FUNÇÃO DE ADIÇÃO (POST)
+
   const handleAddTask = async (novaTarefa) => {
     try {
       await createTask(novaTarefa);
@@ -36,7 +34,7 @@ function App() {
     }
   };
 
-  // FUNÇÃO DE DELETAR (DELETE)
+
   const handleDeleteTask = async (id) => {
     try {
       await deleteTask(id);
@@ -46,11 +44,10 @@ function App() {
     }
   };
 
-  // NOVA FUNÇÃO DE UPDATE (PUT)
   const handleToggleStatus = async (id, newStatus) => {
     try {
       await updateTaskStatus(id, newStatus);
-      fetchTarefas(); // Recarrega as tarefas após a atualização
+      fetchTarefas(); 
     } catch (error) {
       console.error("Erro ao atualizar status da tarefa: ", error);
     }
@@ -64,7 +61,6 @@ function App() {
     return tarefas.filter(tarefa =>
       filter === 'pending' ? !tarefa.status :
         filter === 'completed' ? tarefa.status :
-          // Ajuste para garantir que a comparação de categoria funcione
           tarefa.category.toLowerCase() === filter.toLowerCase()
     );
   }, [tarefas, filter]);
@@ -83,8 +79,6 @@ function App() {
 
         <div className="sidebar-column">
 
-          {/* CORREÇÃO: Componentes renderizados corretamente aqui 
-            */}
           <TaskStatus tarefas={tarefas} />
 
           <div className="form-card">
@@ -101,12 +95,12 @@ function App() {
           <TaskList
             tarefas={filteredTasks}
             onDeleteTask={handleDeleteTask}
-            onToggleStatus={handleToggleStatus} // Passa o novo handler
+            onToggleStatus={handleToggleStatus} 
           />
         </div>
       </main>
 
-      {/* ... (footer) ... */}
+  
       <footer className="main-footer">
         <div className="footer-content container">
           <div className="footer-section brand-info">
@@ -132,8 +126,8 @@ function App() {
           <div className="footer-section credits">
             <h5>Tecnologias</h5>
             <p>Frontend: React (Vite)</p>
-            <p>Backend: Spring Boot</p> {/* Corrigido do seu footer original */}
-            <p>Banco de Dados: H2</p> {/* Corrigido do seu footer original */}
+            <p>Backend: Spring Boot</p> 
+            <p>Banco de Dados: H2</p> 
           </div>
         </div>
 

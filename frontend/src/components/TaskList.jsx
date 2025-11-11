@@ -1,8 +1,5 @@
-// /frontend/src/components/TaskList.jsx
-
 import TaskItem from './TaskItem';
 
-// Adicionado onToggleStatus
 function TaskList({ tarefas = [], onDeleteTask, onToggleStatus }) {
 
     if (tarefas.length === 0) {
@@ -14,7 +11,6 @@ function TaskList({ tarefas = [], onDeleteTask, onToggleStatus }) {
         );
     }
 
-    // Ordenação (Booleano 'false' (0) vem antes de 'true' (1))
     const tarefasOrdenadas = [...tarefas].sort((a, b) => a.status - b.status);
 
     return (
@@ -24,7 +20,7 @@ function TaskList({ tarefas = [], onDeleteTask, onToggleStatus }) {
                     key={tarefa.id}
                     tarefa={tarefa}
                     onDeleteTask={onDeleteTask}
-                    onToggleStatus={onToggleStatus} // Passa o prop adiante
+                    onToggleStatus={onToggleStatus} 
                 />
             ))}
         </div>
