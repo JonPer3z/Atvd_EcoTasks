@@ -3,7 +3,7 @@ import axios from "axios";
 //Post
 async function createTask(taskData) {
   try {
-    const response = await axios.post("http://localhost:3000/task", taskData);
+    const response = await axios.post("http://10.110.12.61:8080/task/post", taskData);
     return response.data;
   } catch (error) {
     console.error("Erro ao criar task no serviço:", error);
@@ -14,7 +14,7 @@ async function createTask(taskData) {
 //Get
 async function getTasks() {
   try {
-    const response = await axios.get("http://localhost:3000/task/get");
+    const response = await axios.get("http://10.110.12.61:8080/task/get");
 
     const tasks = response.data;
 
@@ -41,7 +41,7 @@ async function getTasks() {
 //Delete
 async function deleteTask(taskId) {
   try {
-    const response = await axios.delete(`http://localhost:3000/task/delete/${taskId}`
+    const response = await axios.delete(`http://10.110.12.61:8080/task/delete/${taskId}`
     );
     return response.data;
   } catch (error) {
