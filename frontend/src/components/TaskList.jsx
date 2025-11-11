@@ -2,10 +2,9 @@
 
 import TaskItem from './TaskItem';
 
-// Define um array vazio como valor padrão para 'tarefas'
-function TaskList({ tarefas = [], onDeleteTask }) { 
+// Adicionado onToggleStatus
+function TaskList({ tarefas = [], onDeleteTask, onToggleStatus }) { 
     
-    // Agora o .length é acessado com segurança
     if (tarefas.length === 0) {
         return (
             <div className="task-list-empty">
@@ -15,7 +14,6 @@ function TaskList({ tarefas = [], onDeleteTask }) {
         );
     }
     
-    // Ordenação
     const tarefasOrdenadas = [...tarefas].sort((a, b) => a.status - b.status);
 
     return (
@@ -25,6 +23,7 @@ function TaskList({ tarefas = [], onDeleteTask }) {
                     key={tarefa.id}
                     tarefa={tarefa}
                     onDeleteTask={onDeleteTask}
+                    onToggleStatus={onToggleStatus} // Passa o prop adiante
                 />
             ))}
         </div>
